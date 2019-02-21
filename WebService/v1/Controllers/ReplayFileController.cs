@@ -40,7 +40,7 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.WebService.v1.Controller
         }
 
         [HttpPost(Version.PATH + "/[controller]!validate")]
-        public ActionResult Validate(IFormFile file)
+        public ActionResult Validate([FromForm]IFormFile file)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.WebService.v1.Controller
         }
 
         [HttpPost(Version.PATH + "/[controller]")]
-        public async Task<ReplayFileApiModel> PostAsync(IFormFile file)
+        public async Task<ReplayFileApiModel> PostAsync([FromForm]IFormFile file)
         {
             var replayFile = new DataFile();
 
@@ -87,7 +87,7 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.WebService.v1.Controller
             await this.replayFileService.DeleteAsync(id);
         }
 
-        private void ValidateInput(IFormFile file)
+        private void ValidateInput([FromForm]IFormFile file)
         {
             if (file == null)
             {
