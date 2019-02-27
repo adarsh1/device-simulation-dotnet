@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Diagnostics;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Exceptions;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Models;
+using Newtonsoft.Json;
 
 namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.SimulationAgent.DeviceTelemetry
 {
@@ -55,7 +56,7 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.SimulationAgent.DeviceTe
             var msg = this.message.MessageTemplate;
             foreach (var value in state)
             {
-                msg = msg.Replace("${" + value.Key + "}", value.Value.ToString());
+                msg = msg.Replace("${" + value.Key + "}", JsonConvert.SerializeObject(value.Value));
             }
 
             await this.SendTelemetryMessageAsync(msg);
